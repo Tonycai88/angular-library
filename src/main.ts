@@ -1,16 +1,25 @@
-import './polyfills';
+/*!
+ *
+ * Angle - Bootstrap Admin Template
+ *
+ * Version: 4.7.1
+ * Author: @themicon_co
+ * Website: http://themicon.co
+ * License: https://wrapbootstrap.com/help/licenses
+ *
+ */
 
+import './vendor.ts';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
-  // Ensure Angular destroys itself on hot reloads.
-  if (window['ngRef']) {
-    window['ngRef'].destroy();
-  }
-  window['ngRef'] = ref;
+if (environment.production) {
+    enableProdMode();
+}
 
-  // Otherwise, log the boot error
-}).catch(err => console.error(err));
+let p = platformBrowserDynamic().bootstrapModule(AppModule);
+p.then(() => { (<any>window).appBootstrap && (<any>window).appBootstrap(); })
+// .catch(err => console.error(err));
